@@ -1,4 +1,4 @@
-5import constants as keys
+import constants as keys
 import logging
 from telegram.ext import *
 import response as R
@@ -8,10 +8,9 @@ import json
 
 print("Bot is starting")
 
-api_url_telegram = "https://api.telegram.org/bot1823500930:AAGh-0XunfOjQ6kN31lipBH8HdQzwORcbyA/sendMessage?chat_id=@__groupid__&text="
 
 def send_message_telegram(message):
-    final_telegram_url = api_url_telegram.replace(("__groupid__"), keys.group_id)
+    final_telegram_url = keys.api_url_telegram.replace(("__groupid__"), keys.group_id)
     final_telegram_url = final_telegram_url + message
     #print(message)
     response = requests.get(final_telegram_url , headers = keys.browser_header)
