@@ -20,20 +20,28 @@ def start_command(update, context):
     res = R.myfuc()
     update.message.reply_text(res)
 
+def help_command(update, context):
+    
+    update.message.reply_text('Help!')
 
 def handle_message(update, context):
     text = str(update.message.text).lower()
     user = update.effective_user
     
     response = R.sample(text)
-    if text == "help":
-        response =fucnforstate()
     
-
-    # print(f'{user["username"]}: {text}')
-    
-    # print(f'Bot: {response}')
-    update.message.reply_text(response)
+    #print(response[0])
+    if(len(response)==1):
+        update.message.reply_text(response[0])
+        return
+    if(response[0]=='I' and response[1]=='n' and response[2]=='v'):
+        res = ''
+        for i in response:
+            res+=i
+        update.message.reply_text(res)    
+    else:    
+        for i in response :
+            update.message.reply_text(i)
 
 
 def error(update, context):
@@ -45,8 +53,9 @@ def main():
     dp = updater.dispatcher
 
     dp.add_handler(CommandHandler("start", start_command))
-    # dp.add_handler(CommandHandler("help", help_command))
+    dp.add_handler(CommandHandler("help", help_command))
     # dp.add_handler(CommandHandler("vaccine", vaccine_command))
+    #dp.add_handler(MessageHandler(Filters.text, handle_message))
     dp.add_handler(MessageHandler(Filters.text, handle_message))
     dp.add_error_handler(error)
 
