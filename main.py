@@ -1,13 +1,21 @@
-import constants as keys
+5import constants as keys
 import logging
 from telegram.ext import *
 import response as R
 import requests
 import json
 
+
 print("Bot is starting")
 
+api_url_telegram = "https://api.telegram.org/bot1823500930:AAGh-0XunfOjQ6kN31lipBH8HdQzwORcbyA/sendMessage?chat_id=@__groupid__&text="
 
+def send_message_telegram(message):
+    final_telegram_url = api_url_telegram.replace(("__groupid__"), keys.group_id)
+    final_telegram_url = final_telegram_url + message
+    #print(message)
+    response = requests.get(final_telegram_url , headers = keys.browser_header)
+    #print(response)
 
 def fucnforstate(no):
     #print("enter Your statename :")
@@ -34,7 +42,7 @@ def handle_message(update, context):
         update.message.reply_text(resp)
         return
     
-    if(len(text)<=2 and len(text)>0 and (text[0]>='1' and text[1]<='3') and int(text)<=36 and int(text)>0 ):
+    if(len(text)<=2 and len(text)>0 and (text[0]>='1' and text[0]<='3') and int(text)<=36 and int(text)>0 ):
         let = int(text)
         resp = fucnforstate(let)
         update.message.reply_text(resp)
@@ -53,6 +61,7 @@ def handle_message(update, context):
         update.message.reply_text(res)    
     else:    
         for i in response :
+            send_message_telegram(i)
             update.message.reply_text(i)
 
 
