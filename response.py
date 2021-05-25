@@ -52,15 +52,20 @@ def sample(input_text):
         #print(response)
         json_data = response.json()
         final_text = ''
+        arr =[]
+        brr = []
+        brr.append('Slots Not Available for the selected District and date')
         if len(json_data['sessions'])==0:
-           # no = 
-           # no = no + pin + "on" + date
-            return 'Slots Not Available for the selected District'
+
+            return brr
         else:
             for slots in json_data['sessions']:
                 final_text = final_text + "\nName: "+str(slots['name']) +'\n'+ "Available Capacity: "+str(slots['available_capacity']) +'\n' + "Min Age Limit: "+str(slots['min_age_limit']) +'\n' + "Vaccine: "+str(slots['vaccine'])+ '\n'
-                final_text = final_text + '----------------------------------------'
-
-        return final_text
+                if(slots['available_capacity']>0):
+                    final_text = final_text + '----------------------------------------'
+                    arr.append(final_text)
+                final_text = ''
+        #print(final_text)
+        return arr
     else:
         return "Invalid input"
