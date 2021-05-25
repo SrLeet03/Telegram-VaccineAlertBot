@@ -2,6 +2,16 @@ import requests, json
 
 browser_header = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.76 Safari/537.36'}
 
+def ListOfState():
+    url = f'https://cdn-api.co-vin.in/api/v2/admin/location/states'
+    response = requests.get(url, headers=browser_header)
+    json_data = response.json()
+    final_text = ''
+    
+    for slots in json_data['states']:
+        final_text = final_text + "\nName: "+str(slots['state_name']) +' , '+ "State_Id: "+str(slots['state_id']) +'\n'
+
+    return final_text
 
 def District_List(text):
     var = int(text)
