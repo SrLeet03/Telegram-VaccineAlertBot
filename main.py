@@ -9,27 +9,39 @@ print("Bot is starting")
 
 
 
-def fucnforstate():
+def fucnforstate(no):
     #print("enter Your statename :")
     res = "Let's see your districtcode And Then Use it to konw the Vaccine slots : \n\n"
-    res += R.District_List(21)
+    res += R.District_List(no)
     return res
 
-
+def list():
+    res = 'Heyy!!\n Here Just type : state_list\nThen type the code of state then you will get the list of \ndistricts with their district_id\nHave Fun :)'
+    return res
 def start_command(update, context):
     res = R.myfuc()
     update.message.reply_text(res)
 
 def help_command(update, context):
     
-    update.message.reply_text('Help!')
+    update.message.reply_text(list())
 
 def handle_message(update, context):
     text = str(update.message.text).lower()
     user = update.effective_user
+    if(text=='state_list'):
+        resp = R.ListOfState()
+        update.message.reply_text(resp)
+        return
+    
+    if(len(text)<=2 and len(text)>0 and (text[0]>='1' and text[1]<='3') and int(text)<=36 and int(text)>0 ):
+        let = int(text)
+        resp = fucnforstate(let)
+        update.message.reply_text(resp)
+        return
     
     response = R.sample(text)
-    
+   
     #print(response[0])
     if(len(response)==1):
         update.message.reply_text(response[0])
