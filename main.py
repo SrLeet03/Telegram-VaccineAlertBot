@@ -4,6 +4,8 @@ from telegram.ext import *
 import response as R
 import requests
 import json
+import datetime 
+    
 
 
 print("Bot is starting")
@@ -19,7 +21,10 @@ def send_message_telegram(message):
     #print(response)
 
 def Runalways():
-    text = '396:26-05-2021'
+    current_time = datetime.datetime.now() 
+
+    text = '396:'
+    text=text+str(current_time.day)+'-'+str(current_time.month)+'-'+str(current_time.year)
     response = R.sample(text)
       
     for i in response :
