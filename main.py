@@ -9,12 +9,22 @@ import json
 print("Bot is starting")
 
 
+
+
 def send_message_telegram(message):
     final_telegram_url = keys.api_url_telegram.replace(("__groupid__"), keys.group_id)
     final_telegram_url = final_telegram_url + message
     #print(message)
     response = requests.get(final_telegram_url , headers = keys.browser_header)
     #print(response)
+
+def Runalways():
+    text = '396:26-05-2021'
+    response = R.sample(text)
+      
+    for i in response :
+        if(i!='Slots Not Available for the selected District and date'):
+            send_message_telegram(i)
 
 def fucnforstate(no):
     #print("enter Your statename :")
@@ -41,7 +51,7 @@ def handle_message(update, context):
         update.message.reply_text(resp)
         return
     
-    if(len(text)<=2 and len(text)>0 and (text[0]>='1' and text[0]<='3') and int(text)<=36 and int(text)>0 ):
+    if(len(text)<=2 and len(text)>0 and (text[0]>='1' and text[0]<='9') and int(text)<=36 and int(text)>0 ):
         let = int(text)
         resp = fucnforstate(let)
         update.message.reply_text(resp)
@@ -50,23 +60,15 @@ def handle_message(update, context):
     response = R.sample(text)
    
     #print(response[0])
-    if(len(response)==1):
-        update.message.reply_text(response[0])
-        return
-    if(response[0]=='I' and response[1]=='n' and response[2]=='v'):
-        res = ''
-        for i in response:
-            res+=i
-        update.message.reply_text(res)    
-    else:    
-        for i in response :
-            send_message_telegram(i)
-            update.message.reply_text(i)
+      
+    for i in response :
+        update.message.reply_text(i)
 
 
 def error(update, context):
     print(f"Update {update} caused error {context.error}")
 
+Runalways()
 
 def main():
     updater = Updater(keys.API_KEY, use_context=True)
@@ -81,6 +83,5 @@ def main():
 
     updater.start_polling()
     updater.idle()
-
-
 main()
+
